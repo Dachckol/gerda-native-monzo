@@ -1,0 +1,10 @@
+CMakeCache.txt
+CMakeFiles
+Makefile
+bin
+cmake_install.cmake
+compile_commands.json
+cppcheck-ignore.txt
+install_manifest.txt
+lib
+*.swp

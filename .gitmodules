@@ -1,0 +1,6 @@
+[submodule "android-ifaddrs"]
+	path = android-ifaddrs
+	url = https://github.com/morristech/android-ifaddrs.git
+[submodule "cpp-httplib"]
+	path = cpp-httplib
+	url = https://github.com/yhirose/cpp-httplib.git

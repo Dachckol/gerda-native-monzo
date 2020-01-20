@@ -1,0 +1,4 @@
+RUNTIME=sh
+ENTRYPOINT=run.sh
+APP_OPTS=""
+PORT_OPTS=""
