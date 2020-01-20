@@ -8,3 +8,4 @@ cppcheck-ignore.txt
 install_manifest.txt
 lib
 *.swp
+monzo-bundle/monzo

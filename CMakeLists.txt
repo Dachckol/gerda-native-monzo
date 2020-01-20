@@ -18,8 +18,8 @@ target_include_directories(httplib INTERFACE cpp-httplib)
 target_link_libraries(httplib INTERFACE ifaddrs)
 
 add_executable(monzo)
-target_compile_options(monzo PRIVATE -static-libstdc++)
-target_sources(monzo PRIVATE src/main.cpp)
+file(GLOB MONZO_SOURCES ${CMAKE_SOURCE_DIR}/src/*.cpp)
+target_sources(monzo PRIVATE ${MONZO_SOURCES})
 target_include_directories(monzo PRIVATE src)
 target_link_libraries(monzo PRIVATE httplib)
 
