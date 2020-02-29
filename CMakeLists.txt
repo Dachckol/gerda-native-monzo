@@ -17,12 +17,24 @@ add_library(httplib INTERFACE)
 target_include_directories(httplib INTERFACE cpp-httplib)
 target_link_libraries(httplib INTERFACE ifaddrs)
 
+add_library(libcurl STATIC IMPORTED)
+target_include_directories(ifaddrs PUBLIC lib/libcurl/include)
+set_property(TARGET libcurl PROPERTY IMPORTED_LOCATION lib/libcurl/lib/libcurl.a)
+
+add_library(tao-json INTERFACE)
+target_include_directories(tao-json PUBLIC json/include)
+
 add_executable(monzo)
 file(GLOB MONZO_SOURCES ${CMAKE_SOURCE_DIR}/src/**/*.cpp)
 file(GLOB MONZO_SOURCES ${MONZO_SOURCES} ${CMAKE_SOURCE_DIR}/src/*.cpp)
 target_sources(monzo PRIVATE ${MONZO_SOURCES})
 target_include_directories(monzo PRIVATE src)
-target_link_libraries(monzo PRIVATE httplib)
+target_link_libraries(monzo
+  PRIVATE
+  httplib
+  libcurl
+  tao-json
+)
 target_link_options(monzo PRIVATE -static-libstdc++)
 
 install(TARGETS monzo RUNTIME

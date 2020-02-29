@@ -6,6 +6,8 @@
 #include <string>
 #include <functional>
 
+#include <curl/curl.h>
+
 class Endpoint {
  public:
   Endpoint(const std::string& path, std::stringstream& logs);

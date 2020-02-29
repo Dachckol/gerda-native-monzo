@@ -8,6 +8,8 @@
 
 #include <httplib.h>
 
+#include <curl/curl.h>
+
 #include "endpoints/Endpoint.h"
 #include "endpoints/Index.h"
 #include "log.h"

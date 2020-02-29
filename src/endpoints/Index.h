@@ -8,6 +8,9 @@ class Index : public Endpoint {
   Index(std::stringstream& logs);
   void handle(const httplib::Request& req,
               httplib::Response& resp) const override;
+
+ private:
+  static std::string html_content;
 };
 
 #endif
