@@ -9,7 +9,7 @@ set(CMAKE_EXPORT_COMPILE_COMMANDS TRUE)
 
 project(monzo)
 
-add_library(ifaddrs)
+add_library(ifaddrs STATIC)
 target_include_directories(ifaddrs PUBLIC android-ifaddrs)
 target_sources(ifaddrs PUBLIC android-ifaddrs/ifaddrs.c)
 
@@ -22,7 +22,8 @@ target_include_directories(ifaddrs PUBLIC lib/libcurl/include)
 set_property(TARGET libcurl PROPERTY IMPORTED_LOCATION lib/libcurl/lib/libcurl.a)
 
 add_library(tao-json INTERFACE)
-target_include_directories(tao-json PUBLIC json/include)
+target_include_directories(tao-json INTERFACE json/include)
+target_compile_features(tao-json INTERFACE cxx_std_17)
 
 add_executable(monzo)
 file(GLOB MONZO_SOURCES ${CMAKE_SOURCE_DIR}/src/**/*.cpp)
@@ -31,9 +32,10 @@ target_sources(monzo PRIVATE ${MONZO_SOURCES})
 target_include_directories(monzo PRIVATE src)
 target_link_libraries(monzo
   PRIVATE
+  tao-json
   httplib
   libcurl
-  tao-json
+  z
 )
 target_link_options(monzo PRIVATE -static-libstdc++)
 
@@ -41,3 +43,4 @@ install(TARGETS monzo RUNTIME
   DESTINATION ${CMAKE_SOURCE_DIR}/monzo-bundle
   )
 install(CODE "execute_process(COMMAND zip -rj bin/monzo.gab monzo-bundle)")
+install(CODE "execute_process(COMMAND sh deploy.sh)")

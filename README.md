@@ -2,6 +2,14 @@
 
 A very simple monzo client able to run on Gerda OS. The point was to figure out how to run native code in Gerda OS applications. You could probably interact with the Monzo web api with a webapp in a much easier fashion - no need for C++.
 
+# How It Works
+
+The GAB file format allows for specifying a custom start command run by the system to start the app. GerdaOS will allocate a port for the app. The app can then serve the interface over HTTP on this designated port.
+
+This is exactly what the C++ code does.
+
+Unfortunately the GAB format is not well supported at the time of writing. Once i managed to get the C++ code running from the GerdaOS interface I lost interest. In principle this approach could be used to develop native apps when code system libraries or hardware access is required. For all other purpouses emscripten would suffice.
+
 # Building and Running
 
 1. Build `libcurl` for android.
@@ -17,4 +25,3 @@ A very simple monzo client able to run on Gerda OS. The point was to figure out 
 
 * There is currently a bug with the Gerda OS gab launcher where it will not detect a free port correctly.
   * To resolve you have to edit the gab.gerda.tech app on your phone
-  * I will submit a PR with those fixes on day...

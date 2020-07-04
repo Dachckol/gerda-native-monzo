@@ -15,11 +15,11 @@
 #include "log.h"
 #include "routes.h"
 
-std::vector<std::unique_ptr<const Endpoint>> get_endpoints(
+std::vector<std::unique_ptr<Endpoint>> get_endpoints(
     std::stringstream& logs) {
-  std::vector<std::unique_ptr<const Endpoint>> result;
+  std::vector<std::unique_ptr<Endpoint>> result;
 
-  result.push_back(std::unique_ptr<const Index>(new Index(logs)));
+  result.push_back(std::unique_ptr<Index>(new Index(logs)));
 
   return result;
 }

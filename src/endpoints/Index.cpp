@@ -29,14 +29,21 @@ std::string Index::html_content = R"raw(
 
 Index::Index(std::stringstream& logs) : Endpoint("/", logs) {}
 
-void Index::handle(const httplib::Request& req, httplib::Response& resp) const {
+void Index::handle(const httplib::Request& req, httplib::Response& resp) {
   info_log(logs, "Received message");
 
-  std::string content = std::string(html_content).replace(
-      html_content.find("@content"),
-      sizeof("@content"),
-      logs.str()
-      );
+  std::string body;
+  try {
+//TODO: Example address
+    body = tao::json::to_string(
+        client.get("https://www.reddit.com/r/listentothis/new/.json"));
+  } catch (const std::exception& e) {
+    info_log(logs, e.what());
+  }
+
+  std::string content =
+      std::string(html_content)
+          .replace(html_content.find("@content"), sizeof("@content"), body);
 
   resp.set_content(content, "text/html");
 }
